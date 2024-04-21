@@ -1,12 +1,12 @@
 package Habitat;
 
-public class Plant extends Living {
-    public Plant(int value) {
+public class Mosquito extends Insect {
+    public Mosquito(int value) {
         super(value);
     }
 
     @Override
     public String Appearance() {
-        return "B";
+        return "S";
     }
 }

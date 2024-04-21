@@ -1,0 +1,100 @@
+
+
+
+
+                "INSECT" class will inherit to "Flea" and "MOSQUITO".
+                "LIVING" class will inherit to "PLANT" and "INSECT".
+
+
+                2. Ödev [Tüm Şubeler için]
+                Teslim Tarihi
+                12 Mayıs 2024 (Pazar günü saat 23:50’ye kadar.)
+                Ödev İçeriği
+                Mingw (gcc) C dilinde yazılacak ödevde, program çalıştığı gibi Veri.txt dosyasını okuyacaktır. Bu
+                dosyada değişken sayıda olabilecek satır ve sütunlara yerleşmiş ve aralarında 1 boşluk bulunan tam
+                sayıları okuyacaktır. Sayılar [1 99] arasındaki sayılardan olabilecektir. Bu sayılar canlıların değerini
+                ifade etmektedir. Aşağıda verilmiş sınır değerlerine göre sayısal değerin bitki mi böcek mi olduğu
+                anlaşılabilmektedir.
+                Bitki: 1-9
+                Böcek: 10-20
+                Sinek: 21-50
+                Pire: 51-99
+                Ödev yapılırken aşağıdaki kalıtım hiyerarşisi kullanılmalıdır.
+                Canlılar ekrana yazılırken aşağıdaki harfler kullanılacaktır.
+                Bitki: B
+                Böcek: C
+                Sinek: S
+                Pire: P
+                Önemli: Ödev yapılırken mutlaka derste anlatıldığı şekli ile kalıtım ve soyut sınıf benzetimi
+                kullanılarak yapılacaktır. Modülerlik ve tek sorumluluk ilkesine uyulmalıdır. Ödev doğru çalışsa
+                dahi istenen yöntem kullanılmadığı durumda puan verilmeyecektir.
+                En üstte bulunacak Canli yapısı aşağıdakine uygun tasarlanacaktır. Görünüm fonksiyon göstericisi, bir
+                canlıyı ekrana yazmaya yarayan fonksiyonu gösterecek bir göstericidir.
+                struct CANLI{
+                …
+                char* (*gorunum)();
+                …
+                };
+                Örnek Senaryo:
+                Veri.txt dosyası aşağıdaki gibi olduğu varsayılırsa
+                10 2 5 4 7
+                21 6 1 25 8
+                11 64 33 41 47
+                8 1 9 5 23
+                İlk etapta bu sayısal değerler okunacak ve sayı hangi canlıyı temsil ediyorsa o canlıdan (struct)
+                değişken oluşturulacaktır. Okunduktan sonraki ilk durum ekrana basılmalıdır.
+                Bu kısımda bir tuşa basıldıktan sonra süreç başlayacaktır. Süreç sona kadar otomatik olarak ilerlemeli
+                ve herhangi bir tuşun basılmasını beklememelidir.
+                Süreç soldan sağa doğru (0,0) konumundan bu örnek için (3,4) konumuna kadar devam edecektir.
+                Aşağıda hangi canlının, hangi canlıyı yiyebileceği verilmiştir.
+                Bitki → Pire
+                Böcek → Bitki
+                Sinek → Pire
+                Bitki → Sinek
+                Sinek → Böcek
+                Böcek →Pire
+                Bu örnek için (0,0) konumundan başladığında C →B geliyor yani Böcek → Bitki, böcek bitkiyi
+                yiyebileceği için Bitki ölüp X olacaktır. Bu yöntemle ilk satırda bu örnek için böcek sürekli bitkiyi
+                yiyerek ilerleyecektir. İkinci satıra gelindiğinde sıra C →S yani Böcek → Sinek olacaktır. Burada sinek
+                böceği yiyeceği için Böcek ölecektir.
+
+                Aşağıda bu mantık ile bu örnek için süreç sona kadar nasıl devam ettiği gösterilmiştir. Aynı canlı denk
+                gelmesi durumunda sayısal değeri büyük olan kazanacak diğer canlı ölecektir. Eğer sayısal değerler de
+                eşit olursa bu durumda bitiş noktasında daha yakın olan ölecektir. Ekrana yeni durum her
+                yazdırılmaldan önce ekran temizlenmelidir.
+                En sonda kazanan canlı ekrana yazılacak ve konumu da ekrana yukarıdaki gibi yazılacaktır.
+                Çok büyük boyutlu dosyalara da cevap verecek şekilde ödev yapılmalıdır.
+                Bu ödevin en önemli kısmı derste gösterildiği şekliyle nesne yönelimli benzetimi yapılarak
+                tasarlanmasıdır.
+                Bulunması gereken minimum yapılar (struct):
+                • Canlı (Canli.h, Canli.c)
+                • Bitki (Bitki.h, Bitki.c)
+                • Bocek (Bocek.h, Bocek.c)
+                • Sinek (Sinek.h, Sinek.c)
+                • Pire (Pire.h, Pire.c)
+                • Habitat (Habitat.h, Habitat.c)
+                • Test.c
+                Bu yapılar arasındaki ilişkiye ve veri akışına kafa yormak gerekmektedir. İstendiği için yerleştirilmiş
+                ama görevini yapmayan yapılara puan verilmeyecektir.
+                Her yapının başlık ve kaynak dosyaları ayrı bir şekilde ve başlık dosyasında metot gövdesi olmayacak
+                bir şekilde tasarlanmalıdır. Klasör hiyerarşisi ve make dosyası derste gösterildiği şekilde olmak
+                zorundadır.
+                Önemli: Ödevi yaparken aşağıdaki kaynaklar yardımcı olacaktır.
+                Nesne yönelimli benzetim için https://youtu.be/yMHGt2Bcsts
+                Kalıtım ve Soyut Sınıf benzetimi için https://youtu.be/ov_GudbL1qo
+                Yazılacak ödev mutlaka MinGW gcc ortamında derlenebilen ödev olmalıdır. (make dosyasında g++
+                olan ödeve puan verilmeyecektir.)
+                Önemli Not: Raporunuz detaylı olmalı ve kendi cümleleriniz olmalıdır (Örnek rapor
+                SABİS’e yüklenmiştir). Kopya ödevler sıfır olarak değerlendirilecektir. SABİS şifreniz sizin
+                sorumluluğunuz altındadır eğer arkadaşınız sizden habersiz ödevinizi alırsa bundan sizde
+                sorumlu tutulur ve sıfır alırsınız.
+                ÖDEV BİREYSELDİR
+                Teslim Formatı
+                Ödevin ana klasörünü .zip’li bir şekilde SABİS üzerinden gönderiniz. Klasörünüzün adı öğrenci
+                numaranız (b121210080 gibi) olmalıdır. Yukarıda belirtilen teslim tarihinden sonra gönderilen
+                ödev kesinlikle kabul edilmeyecektir.
+                Rapor pdf formatında olmalıdır. Raporu ayrıca çıktı olarak getirmenize gerek yoktur. Raporunuzda
+                kısaca sizden istenilen, öğrendikleriniz, ödevde yaptıklarınız, eksik bıraktığınız yerler, zorlandığınız
+                kısımlar anlatılabilir. Ödev raporunda yazı boyutu 12 puntodan büyük olamaz ve kapak hariç en
+                az 1 sayfa en çok 3 sayfa olabilir.
+                KOPYA ÖDEV SIFIR OLARAK DEĞERLENDİRİLMEKTEDİR
