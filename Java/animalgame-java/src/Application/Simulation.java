@@ -47,6 +47,7 @@ int column = 0;
             {
                 throw new IllegalArgumentException("Row and column must be less than the size of the habitat");
             }
+
         }
 
     }
@@ -58,7 +59,14 @@ int column = 0;
  * Sinek → Pire
  * Bitki → Sinek
  * Sinek → Böcek
- * Böcek →Pire*/
+ * Böcek →Pire
+     *
+     * Bitki >> B
+     * Sinek >> S
+     * Pire  >> P
+     * Bocek >> C
+     *
+     * */
 private void WarLivings(Living firstLiving, Living secondLiving) {
     System.out.println("-----------------------");
 
@@ -125,15 +133,12 @@ private void WarLivings(Living firstLiving, Living secondLiving) {
     }
     if (firstLiving.Appearance().equals(secondLiving.Appearance())) {
         Living loser = compareSameTypeLivings(firstLiving, secondLiving);
-        System.out.println("Same type livings are fighting. Loser is: " + loser.Appearance());
+        System.out.println("Same type livings are fighting. Loser is: " + loser.Appearance() + " at " + loser.getRowLocation() + "," + loser.getColumnLocation());
         habitat.killLiving(loser.getRowLocation(), loser.getColumnLocation());
     }
-
-
-    System.out.println();
     habitat.printHabitat();
+    System.out.println("-----------------------");
 }
-
     private Living compareSameTypeLivings(Living living1, Living living2) {
        if(living1.getValue() > living2.getValue())
        {

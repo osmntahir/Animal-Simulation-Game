@@ -13,13 +13,8 @@ public abstract class Living {
         rowLocation = -1;
         columnLocation = -1;
     }
-
     public int getValue(){
         return value;
-    }
-
-    public void setValue(int value){
-        this.value = value;
     }
 
     public int getRowLocation() {

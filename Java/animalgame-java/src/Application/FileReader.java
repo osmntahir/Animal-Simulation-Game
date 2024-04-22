@@ -2,16 +2,20 @@ package Application;
 
 import Habitat.*;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class FileReader {
+public class FileREADER {
 private int row;
 private int column;
+
 private Habitat habitat;
 
-    public FileReader() {
+    public FileREADER() {
         row = 0;
         column = 0;
         habitat = new Habitat(4,5);
@@ -20,44 +24,32 @@ private Habitat habitat;
 
     public void ReadFile() {
         try {
-            // Dosyayı okumak için Scanner oluştur
-            File file = new File("animalgame-java/src/Habitat/data/data.txt");
-            Scanner scanner = new Scanner(file);
+            // Dosyayı okumak için BufferedReader kullan
+            File file = new File("src\\Habitat\\data\\data.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
 
             // Dosya sonuna kadar döngüyü başlat
-            while (scanner.hasNextLine()) {
-                // Satırı oku
-                String line = scanner.nextLine();
-
-                // Satırdaki sayıları boşluklardan ayırarak diziye ekle
-                String[] numbers = line.split(" ");
-
-                // Her sayıyı kontrol et ve uygun canlıları oluştur
-                for (String number : numbers) {
-                    int value = Integer.parseInt(number);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Her satırı kontrol et ve uygun canlıları oluştur
+                Matcher matcher = Pattern.compile("\\d+").matcher(line);
+                int column = 0;
+                while (matcher.find()) {
+                    int value = Integer.parseInt(matcher.group());
                     Living living = createNewLiving(value);
-                 //   System.out.print(living.Appearance () + " ");
                     living.setRowLocation(row);
                     living.setColumnLocation(column);
-                    habitat.addLiving(row,column,living);
-
-                       column++;
+                    habitat.addLiving(row, column, living);
+                    column++;
                 }
-     //           System.out.println("row: " + row + " column: " + column);
-                column =0;
                 row++;
-       //         System.out.println(); // Her satırın sonunda bir alt satıra geç
-
             }
-
             // Dosyayı kapat
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Dosya bulunamadı: " + e.getMessage());
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Dosya okunurken bir hata oluştu: " + e.getMessage());
         }
     }
-
-
     public static Living createNewLiving(int value) {
         if (value >= 1 && value <= 9) {
             return new Plant(value);
@@ -70,14 +62,6 @@ private Habitat habitat;
         } else {
             throw new IllegalArgumentException("Geçersiz değer: " + value);
         }
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public int getRow() {
-        return row;
     }
 
     public Habitat getHabitat() {

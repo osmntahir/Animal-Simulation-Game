@@ -3,18 +3,11 @@ package Habitat;
 public class Habitat {
     private  Living[][] habitatMatris;
     private int LivingCounter;
-
-
-
     public Habitat(int row, int column) {
         habitatMatris = new Living[row][column];
-  //      LivingCountInRow = column;
         LivingCounter = 0;
 
     }
-
-
-
     public  void addLiving(int row, int column, Living living) {
         if(row < 0 ||column<0 ){
            throw new IllegalArgumentException("Row and column must be greater than 0");
@@ -28,13 +21,10 @@ public class Habitat {
        }
         LivingCounter++;
         habitatMatris[row][column] = living;
-
     }
-
     public int getLivingCounter() {
         return LivingCounter;
     }
-
     public void killLiving(int row, int column) {
         if(row < 0 ||column<0 ){
             throw new IllegalArgumentException("Row and column must be greater than 0");
@@ -85,16 +75,14 @@ public class Habitat {
             System.out.println();
         }
     }
+    public void printWinner() {
+        for (int i = 0; i < habitatMatris.length; i++) {
+            for (int j = 0; j < habitatMatris[i].length; j++) {
+                if (habitatMatris[i][j] != null) {
+                    System.out.println(habitatMatris[i][j].Appearance()+"("+i+","+j+")" + " is the winner");
+                }
+            }
 
-
-
-/*
-    public int getLivingCounter() {
-        return livingCounter;
+        }
     }
-
-    public void setLivingCounter(int i) {
-        livingCounter = i;
-    }
-    */
 }
