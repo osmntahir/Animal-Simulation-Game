@@ -10,7 +10,9 @@ public class Main {
         fileReader.getHabitat().printHabitat();
         Simulation simulation = new Simulation(fileReader.getHabitat());
         simulation.simulate();
-     //   fileReader.getHabitat().printHabitat();
+
+        System.out.println();
+       fileReader.getHabitat().printHabitat();
 
     }
 }

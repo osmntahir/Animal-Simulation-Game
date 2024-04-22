@@ -24,18 +24,28 @@ int column = 0;
             }
             if(currentLiving == null)
             {
-                currentLiving = habitat.getLiving(row%rowCount,column%columnCount);
-            }
+                currentLiving = habitat.getLiving(row,column);
 
-            nextLiving = habitat.getLiving(row%rowCount,(column%columnCount-1)+1);
+            }
+            nextLiving = habitat.getLiving(row,column+1);
+
             if (currentLiving != null && nextLiving != null)
             {
                 WarLivings(currentLiving, nextLiving);
+                if(habitat.getLiving(currentLiving.getRowLocation(),currentLiving.getColumnLocation()) == null)
+                {
+                    currentLiving = nextLiving;
+                }
                 column++;
             }
-            if(column%columnCount == 0)
+            if(column >=columnCount-1)
             {
+                column = -1;
                 row++;
+            }
+            if(row > rowCount)
+            {
+                throw new IllegalArgumentException("Row and column must be less than the size of the habitat");
             }
         }
 
@@ -50,53 +60,73 @@ int column = 0;
  * Sinek → Böcek
  * Böcek →Pire*/
 private void WarLivings(Living firstLiving, Living secondLiving) {
+    System.out.println("-----------------------");
 
+    System.out.println(firstLiving.Appearance() + " vs " + secondLiving.Appearance());
     // Plant  eats --> Flea
-    if (firstLiving instanceof Plant && secondLiving instanceof Flea) {
+    if (firstLiving.Appearance().equals("B") && secondLiving.Appearance().equals("P")) {
+        System.out.println("Plant eats Flea");
         habitat.killLiving(secondLiving.getRowLocation(), secondLiving.getColumnLocation());
     }
-    else if(firstLiving instanceof Flea && secondLiving instanceof Plant) {
+    if(firstLiving.Appearance().equals("P") && secondLiving.Appearance().equals("B"))
+    {
+        System.out.println("Plant eats Flea");
         habitat.killLiving(firstLiving.getRowLocation(), firstLiving.getColumnLocation());
     }
-    // Insect eats --> Plant
-    else if (firstLiving instanceof Insect && secondLiving instanceof Plant) {
+    // Insect  eats --> Plant
+    if (firstLiving.Appearance().equals("C") && secondLiving.Appearance().equals("B")) {
+        System.out.println("Insect eats Plant");
         habitat.killLiving(secondLiving.getRowLocation(), secondLiving.getColumnLocation());
     }
-    else if(firstLiving instanceof Plant && secondLiving instanceof Insect) {
+    if(firstLiving.Appearance().equals("B") && secondLiving.Appearance().equals("C"))
+    {
+        System.out.println("Insect eats Plant");
         habitat.killLiving(firstLiving.getRowLocation(), firstLiving.getColumnLocation());
     }
-    // Mosquito eats --> Flea
-    else if (firstLiving instanceof Mosquito && secondLiving instanceof Flea) {
+    // Mosquito  eats --> Flea
+    if (firstLiving.Appearance().equals("S") && secondLiving.Appearance().equals("P")) {
+        System.out.println("Mosquito eats Flea");
         habitat.killLiving(secondLiving.getRowLocation(), secondLiving.getColumnLocation());
     }
-    else if(firstLiving instanceof Flea && secondLiving instanceof Mosquito) {
+    if(firstLiving.Appearance().equals("P") && secondLiving.Appearance().equals("S"))
+    {
+        System.out.println("Mosquito eats Flea");
         habitat.killLiving(firstLiving.getRowLocation(), firstLiving.getColumnLocation());
     }
-    // Plant eats --> Mosquito
-    else if (firstLiving instanceof Plant && secondLiving instanceof Mosquito) {
+    // Plant  eats --> Mosquito
+    if (firstLiving.Appearance().equals("B") && secondLiving.Appearance().equals("S")) {
+        System.out.println("Plant eats Mosquito");
         habitat.killLiving(secondLiving.getRowLocation(), secondLiving.getColumnLocation());
     }
-    else if(firstLiving instanceof Mosquito && secondLiving instanceof Plant) {
+    if(firstLiving.Appearance().equals("S") && secondLiving.Appearance().equals("B"))
+    {
+        System.out.println("Plant eats Mosquito");
         habitat.killLiving(firstLiving.getRowLocation(), firstLiving.getColumnLocation());
     }
-    // Mosquito eats --> Insect
-    else if (firstLiving instanceof Mosquito && secondLiving instanceof Insect) {
+    // Mosquito  eats --> Insect
+    if (firstLiving.Appearance().equals("S") && secondLiving.Appearance().equals("C")) {
+        System.out.println("Mosquito eats Insect");
         habitat.killLiving(secondLiving.getRowLocation(), secondLiving.getColumnLocation());
     }
-    else if(firstLiving instanceof Insect && secondLiving instanceof Mosquito) {
+    if(firstLiving.Appearance().equals("C") && secondLiving.Appearance().equals("S"))
+    {
+        System.out.println("Mosquito eats Insect");
         habitat.killLiving(firstLiving.getRowLocation(), firstLiving.getColumnLocation());
     }
-    // Insect eats --> Flea
-    else if (firstLiving instanceof Insect && secondLiving instanceof Flea) {
+    // Insect  eats --> Flea
+    if (firstLiving.Appearance().equals("C") && secondLiving.Appearance().equals("P")) {
+        System.out.println("Insect eats Flea");
         habitat.killLiving(secondLiving.getRowLocation(), secondLiving.getColumnLocation());
     }
-    else if(firstLiving instanceof Flea && secondLiving instanceof Insect) {
+    if(firstLiving.Appearance().equals("P") && secondLiving.Appearance().equals("C"))
+    {
+        System.out.println("Insect eats Flea");
         habitat.killLiving(firstLiving.getRowLocation(), firstLiving.getColumnLocation());
     }
-    // if livings are same type, compare their locations and values
-    else if (firstLiving.getClass().equals(secondLiving.getClass())) {
-        Living looser = compareSameTypeLivings(firstLiving, secondLiving);
-        habitat.killLiving(looser.getRowLocation(), looser.getColumnLocation());
+    if (firstLiving.Appearance().equals(secondLiving.Appearance())) {
+        Living loser = compareSameTypeLivings(firstLiving, secondLiving);
+        System.out.println("Same type livings are fighting. Loser is: " + loser.Appearance());
+        habitat.killLiving(loser.getRowLocation(), loser.getColumnLocation());
     }
 
 
@@ -104,21 +134,36 @@ private void WarLivings(Living firstLiving, Living secondLiving) {
     habitat.printHabitat();
 }
 
-
     private Living compareSameTypeLivings(Living living1, Living living2) {
-        // Canlıların konumlarını ve değerlerini karşılaştırarak kazananı belirle
-        int valueComparison = Integer.compare(living1.getValue(), living2.getValue());
-        if (valueComparison != 0) {
-            return valueComparison < 0 ? living1 : living2; // Değerler farklı ise daha küçük olanı kaybeden olarak döndür
-        } else {
-            // Değerler aynı ise konumlarına göre kazananı belirle
-            int rowComparison = Integer.compare(living1.getRowLocation(), living2.getRowLocation());
-            if (rowComparison != 0) {
-                return rowComparison < 0 ? living1 : living2; // Satır konumları farklı ise daha küçük olanı kaybeden olarak döndür
-            } else {
-                // Satır konumları da aynı ise sütun konumlarına göre kazananı belirle
-                return Integer.compare(living1.getColumnLocation(), living2.getColumnLocation()) < 0 ? living1 : living2;
-            }
-        }
+       if(living1.getValue() > living2.getValue())
+       {
+           return living2;
+       }
+       else if(living1.getValue() < living2.getValue())
+       {
+           return living1;
+       }
+       else
+       {
+           if(living1.getRowLocation() > living2.getRowLocation())
+           {
+               return living1;
+           }
+           else if(living1.getRowLocation() < living2.getRowLocation())
+           {
+               return living2;
+           }
+           else
+           {
+               if(living1.getColumnLocation() > living2.getColumnLocation())
+               {
+                   return living1;
+               }
+               else
+               {
+                   return living2;
+               }
+           }
+       }
     }
 }
