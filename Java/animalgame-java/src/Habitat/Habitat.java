@@ -22,6 +22,19 @@ public class Habitat {
         LivingCounter++;
         habitatMatris[row][column] = living;
     }
+    
+    public void resize(int newRow, int newColumn) {
+
+        Living[][] newHabitatMatris = new Living[newRow][newColumn];
+        for (int i = 0; i < habitatMatris.length; i++) {
+            for (int j = 0; j < habitatMatris[i].length; j++) {
+                newHabitatMatris[i][j] = habitatMatris[i][j];
+            }
+        }
+       // livingCounter= newColumn;
+        habitatMatris = newHabitatMatris;
+    //    LivingCountInRow = newColumn;
+    }
     public int getLivingCounter() {
         return LivingCounter;
     }
@@ -51,18 +64,6 @@ public class Habitat {
         return habitatMatris[0].length;
     }
 
-    public void resize(int newRow, int newColumn) {
-
-        Living[][] newHabitatMatris = new Living[newRow][newColumn];
-        for (int i = 0; i < habitatMatris.length; i++) {
-            for (int j = 0; j < habitatMatris[i].length; j++) {
-                newHabitatMatris[i][j] = habitatMatris[i][j];
-            }
-        }
-       // livingCounter= newColumn;
-        habitatMatris = newHabitatMatris;
-    //    LivingCountInRow = newColumn;
-    }
     public void printHabitat() {
         for (int i = 0; i < habitatMatris.length; i++) {
             for (int j = 0; j < habitatMatris[i].length; j++) {

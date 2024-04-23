@@ -139,6 +139,8 @@ private void WarLivings(Living firstLiving, Living secondLiving) {
     habitat.printHabitat();
     System.out.println("-----------------------");
 }
+
+
     private Living compareSameTypeLivings(Living living1, Living living2) {
        if(living1.getValue() > living2.getValue())
        {
