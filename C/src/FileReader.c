@@ -14,7 +14,6 @@ FileReader newFileReader() {
 }
 
 void readFile(FileReader fileReader) {
-
     printf("Dosya okunuyor...\n");
     FILE *file = fopen("doc/data.txt", "r");
     if (file == NULL) {
@@ -22,8 +21,11 @@ void readFile(FileReader fileReader) {
         exit(1);
     }
 
-    char line[100];
-    while (fgets(line, sizeof(line), file) != NULL) {
+    char *line = NULL;
+    size_t lineSize = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &lineSize, file)) != -1) {
         int column = 0;
         char *token = strtok(line, " ");
         while (token != NULL) {
@@ -37,6 +39,8 @@ void readFile(FileReader fileReader) {
         }
         fileReader->row++;
     }
+
+    free(line);
     fclose(file);
 }
 

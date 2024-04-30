@@ -12,7 +12,12 @@ char* fleaAppreance(const Flea flea) {
     return "P";
 }
 
-void deleteFlea(const Flea flea) {
-    deleteInsect(flea->super);
-    free(flea);
+void deleteFlea(const Flea this) {
+    if(this) {
+      if(this->super)
+      {
+        this->super->deleteInsect(this->super);
+      }
+        free(this);
+    }
 }

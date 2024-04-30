@@ -17,6 +17,12 @@ char* insectAppreance(const Insect insect)
 
 void deleteInsect(const Insect insect)
 {
-    insect->super->deleteLiving(insect->super);
-    free(insect);
+    if(insect)
+    {
+        if(insect->super)
+        {
+            insect->super->deleteLiving(insect->super);
+        }
+        free(insect);
+    }
 }

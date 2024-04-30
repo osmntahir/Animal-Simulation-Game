@@ -17,7 +17,13 @@ char* mosquitoAppreance(const Mosquito mosquito)
 
 void deleteMosquito(const Mosquito mosquito)
 {
-    deleteInsect(mosquito->super);
-    free(mosquito);
+    if(mosquito)
+    {
+        if(mosquito->super)
+        {
+            mosquito->super->deleteInsect(mosquito->super);
+        }
+        free(mosquito);
+    }
 }
 

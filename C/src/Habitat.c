@@ -145,17 +145,8 @@ void printWinner(const Habitat habitat) {
 
 void deleteHabitat(const Habitat habitat) {
     for (int i = 0; i < habitat->rows; i++) {
-        for (int j = 0; j < habitat->cols; j++)
-        {
-            if(habitat->habitatMatrix[i][j] != NULL)
-            {
-                habitat->habitatMatrix[i][j]->deleteLiving(habitat->habitatMatrix[i][j]);
-            }
-            
-        }
-        
+        free(habitat->habitatMatrix[i]);
     }
-     
     free(habitat->habitatMatrix);
     free(habitat);
 }

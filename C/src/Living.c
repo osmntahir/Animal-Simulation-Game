@@ -16,5 +16,8 @@
 
     void deleteLiving(const Living this)
     {
-        free(this);
+        if(this)
+        {
+            free(this);
+        }
     }

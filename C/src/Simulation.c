@@ -120,6 +120,7 @@ void WarLivings(const Simulation this, Living currentLiving, Living nextLiving) 
         CompareSameTypeLivings(this, currentLiving, nextLiving);
     }
     printf("\n");
+    system("cls");
    this->habitat->printHabitat(this->habitat);
 }
 void runSimulation(const Simulation this)
@@ -166,5 +167,8 @@ void runSimulation(const Simulation this)
 }
 void deleteSimulation(const Simulation this)
 {
-    free(this);
+    if(this)
+    {
+        free(this);
+    }
 }

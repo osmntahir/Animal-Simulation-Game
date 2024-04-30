@@ -21,6 +21,10 @@ char* plantAppreance(const Plant this) {
 }
 
 void deletePlant(const Plant this) {
-    this->super->deleteLiving(this->super);
-    free(this);
+    if (this) {
+        if (this->super) {
+            this->super->deleteLiving(this->super);
+        }
+        free(this);
+    }
 }
