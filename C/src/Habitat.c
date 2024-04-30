@@ -77,6 +77,7 @@ void killLiving(const Habitat habitat, int row, int column) {
         fprintf(stderr, "There is no living creature at this location.\n");
         exit(EXIT_FAILURE);
     }
+    
     habitat->habitatMatrix[row][column] = NULL;
     habitat->livingCount--;
 }
